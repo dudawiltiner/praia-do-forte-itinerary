@@ -1,26 +1,56 @@
+let userConfig = undefined;
+try {
+  userConfig = await import('./v0-user-next.config');
+} catch {
+  // ignore error
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
-    domains: [
-      'praiadoforte.org.br',
-      'www.abraceomundo.com',
-      'media-cdn.tripadvisor.com',
-      'www.tamar.org.br',
-      'www.buenasdicas.com',
-      'diariosgastronomicos.com.br',
-      'midias.jornalcruzeiro.com.br',
-      '7pizzas.com.br',
-      'i.ytimg.com',
-      'viajocomfilhos.com.br',
-      'terrabrasilrestaurante.com.br',
-      'catadodecultura.com.br',
-      'dynamic-media-cdn.tripadvisor.com',
-      's2.glbimg.com',
-      'www.feriasbrasil.com.br'
-    ],
+    unoptimized: true,
+  },
+  experimental: {
+    webpackBuildWorker: true,
+    parallelServerBuildTraces: true,
+    parallelServerCompiles: true,
+  },
+  reactStrictMode: true,
+  webpack: (config) => {
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    return config;
   },
 };
 
-export default nextConfig;
+mergeConfig(nextConfig, userConfig);
 
+function mergeConfig(nextConfig, userConfig) {
+  if (!userConfig) {
+    return;
+  }
+
+  for (const key in userConfig) {
+    if (
+      typeof nextConfig[key] === 'object' &&
+      !Array.isArray(nextConfig[key])
+    ) {
+      nextConfig[key] = {
+        ...nextConfig[key],
+        ...userConfig[key],
+      };
+    } else {
+      nextConfig[key] = userConfig[key];
+    }
+  }
+}
+
+export default nextConfig;

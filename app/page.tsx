@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,12 +16,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Toaster } from "@/components/ui/toaster";
 import { toast } from "@/components/ui/use-toast";
 import {
+  Bike,
   Calendar,
   Clock,
   CloudRain,
   Copy,
+  Home,
+  Info,
   MapPin,
   Sun,
   Thermometer,
@@ -825,12 +835,375 @@ export default function TravelItinerary() {
                       </Button>
                     </div>
                   </div>
+
+                  <div className="border-l-2 border-primary pl-4 relative">
+                    <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                    <h3 className="text-lg font-medium flex items-center gap-2">
+                      <Clock className="h-4 w-4" /> Tarde
+                    </h3>
+                    <div className="mt-2">
+                      <p className="font-medium">Lago Azul nas Dunas</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Lago de água azul-turquesa cercado por dunas.
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <MapPin className="h-3 w-3" /> Mata de São João
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <Clock className="h-3 w-3" /> Acesso: 9h às 17h
+                        (verificar com guias locais)
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                        <div className="relative h-[200px] w-full overflow-hidden rounded-md">
+                          <Image
+                            src="https://media-cdn.tripadvisor.com/media/photo-s/07/1e/2f/38/praia-de-baixio-esplanada.jpg"
+                            alt="Lago Azul - Vista aérea"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="relative h-[200px] w-full overflow-hidden rounded-md">
+                          <Image
+                            src="https://s2.glbimg.com/YJC8XIhrHn8itPqnYl3lF3ew44Q=/s.glbimg.com/jo/g1/f/original/2015/01/03/p1040762.jpg"
+                            alt="Lago Azul - Águas turquesa"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-2 bg-muted p-3 rounded-md">
+                        <p className="text-sm font-medium">Como chegar:</p>
+                        <p className="text-sm">
+                          Do restaurante, você precisará de transporte (carro ou
+                          buggy). O Lago Azul fica a aproximadamente 25 minutos
+                          de carro da Vila. Siga pela Rodovia BA-099 em direção
+                          a Imbassaí. Há placas indicativas no caminho.
+                          Recomendamos contratar um guia local para melhor
+                          experiência.
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-2"
+                        onClick={() =>
+                          copyToClipboard(
+                            "-12.4982, -37.9812, Lago Azul nas Dunas, Imbassaí, Mata de São João - BA, 48280-000",
+                            "Lago Azul nas Dunas"
+                          )
+                        }
+                      >
+                        <Copy className="h-3 w-3 mr-1" /> Copiar localização
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="border-l-2 border-primary pl-4 relative">
+                    <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                    <h3 className="text-lg font-medium flex items-center gap-2">
+                      <Utensils className="h-4 w-4" /> Jantar
+                    </h3>
+                    <div className="mt-2">
+                      <p className="font-medium">Xica's Bistrô</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Pratos locais e vegetarianos.
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <MapPin className="h-3 w-3" /> Alameda das Estrelas,
+                        Praia do Forte
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <Clock className="h-3 w-3" /> Horário de funcionamento:
+                        18h às 23h
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                        <div className="relative h-[200px] w-full overflow-hidden rounded-md">
+                          <Image
+                            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/29/cd/94/4f/varandinha-gourmet.jpg?w=900&h=500&s=1"
+                            alt="Xica's Bistrô - Varanda"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="relative h-[200px] w-full overflow-hidden rounded-md">
+                          <Image
+                            src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/17/20/e0/58/xica-s-bistro.jpg?w=800&h=400&s=1"
+                            alt="Xica's Bistrô - Ambiente"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-2 bg-muted p-3 rounded-md">
+                        <p className="text-sm font-medium">Como chegar:</p>
+                        <p className="text-sm">
+                          Do Lago Azul, retorne à Vila de Praia do Forte. O
+                          restaurante fica na Alameda das Estrelas, próximo à
+                          sua hospedagem. São aproximadamente 8 minutos de carro
+                          do centro da Vila até o restaurante.
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-2"
+                        onClick={() =>
+                          copyToClipboard(
+                            "-12.5766, -38.0060, Xica's Bistrô, Alameda das Estrelas, 42 - Praia do Forte, Mata de São João - BA, 48280-000",
+                            "Xica's Bistrô"
+                          )
+                        }
+                      >
+                        <Copy className="h-3 w-3 mr-1" /> Copiar localização
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="day4" className="mt-4">
+            <Card>
+              <CardHeader className="pb-2">
+                <div className="flex justify-between items-center">
+                  <CardTitle className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    Dia 4 (31/03) - Encerramento e Partida
+                  </CardTitle>
+                  <Badge variant="outline">Segunda-feira</Badge>
+                </div>
+                <CardDescription>
+                  Últimas atividades antes da partida
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  <div className="border-l-2 border-primary pl-4 relative">
+                    <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                    <h3 className="text-lg font-medium flex items-center gap-2">
+                      <Clock className="h-4 w-4" /> Manhã
+                    </h3>
+                    <div className="mt-2">
+                      <p className="font-medium">Passeio livre pela vila</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Últimas compras de lembranças antes da partida.
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <Clock className="h-3 w-3" /> Horário de funcionamento
+                        das lojas: 9h às 22h
+                      </p>
+                      <div className="relative h-[200px] w-full overflow-hidden rounded-md mt-2">
+                        <Image
+                          src="https://www.abraceomundo.com/wp-content/uploads/2018/07/praia-do-forte-salvador.gif"
+                          alt="Vila de Praia do Forte - Compras"
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="mt-2 bg-muted p-3 rounded-md">
+                        <p className="text-sm font-medium">Sugestões:</p>
+                        <p className="text-sm">
+                          Visite as lojas de artesanato local na Alameda do Sol
+                          e Alameda das Estrelas. Há diversas opções de
+                          souvenirs, roupas de praia e artesanato baiano.
+                          Recomendamos também visitar a feira de artesanato
+                          próxima ao Projeto Tamar para as últimas lembranças.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-l-2 border-primary pl-4 relative">
+                    <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                    <h3 className="text-lg font-medium flex items-center gap-2">
+                      <Clock className="h-4 w-4" /> Opcional: Parque Municipal
+                      Klaus Peters
+                    </h3>
+                    <div className="mt-2">
+                      <p className="font-medium">
+                        Parque Municipal Klaus Peters
+                      </p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Área de preservação ambiental com trilhas e fauna local.
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <MapPin className="h-3 w-3" /> Próximo à Vila de Praia
+                        do Forte
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <Clock className="h-3 w-3" /> Horário de funcionamento:
+                        8h às 16h
+                      </p>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+                        <div className="relative h-[200px] w-full overflow-hidden rounded-md">
+                          <Image
+                            src="https://praiadoforte.org.br/wp-content/uploads/2024/05/parque-klaus-petter-em-praia-do-forte-por-Waldyr-Lantyer.jpg"
+                            alt="Parque Municipal Klaus Peters - Vista geral"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                        <div className="relative h-[200px] w-full overflow-hidden rounded-md">
+                          <Image
+                            src="https://praiadoforte.org.br/wp-content/uploads/2024/05/Portal-Praia-do-Forte-Klaus-Petter-por-Waldyr-Lantyer-01.jpg"
+                            alt="Parque Municipal Klaus Peters - Portal"
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </div>
+                      <div className="mt-2 bg-muted p-3 rounded-md">
+                        <p className="text-sm font-medium">Como chegar:</p>
+                        <p className="text-sm">
+                          Da Vila de Praia do Forte, o parque fica a
+                          aproximadamente 10 minutos de carro. Você pode
+                          contratar um táxi ou usar o buggy alugado. O parque
+                          oferece trilhas curtas e a oportunidade de observar a
+                          fauna e flora local. Ideal para uma visita rápida
+                          antes da partida.
+                        </p>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="mt-2"
+                        onClick={() =>
+                          copyToClipboard(
+                            "-12.5801, -38.0102, Parque Municipal Klaus Peters, Estrada do Coco, Praia do Forte, Mata de São João - BA, 48280-000",
+                            "Parque Municipal Klaus Peters"
+                          )
+                        }
+                      >
+                        <Copy className="h-3 w-3 mr-1" /> Copiar localização
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="border-l-2 border-primary pl-4 relative">
+                    <div className="absolute w-3 h-3 bg-primary rounded-full -left-[7px] top-1"></div>
+                    <h3 className="text-lg font-medium flex items-center gap-2">
+                      <Clock className="h-4 w-4" /> Partida
+                    </h3>
+                    <div className="mt-2">
+                      <p className="font-medium">Check-out e retorno</p>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Encerramento da estadia e retorno.
+                      </p>
+                      <p className="text-sm flex items-center gap-1 mt-1">
+                        <Clock className="h-3 w-3" /> Horário de check-out: até
+                        12h
+                      </p>
+                      <div className="mt-2 bg-muted p-3 rounded-md">
+                        <p className="text-sm font-medium">
+                          Dicas para o retorno:
+                        </p>
+                        <p className="text-sm">
+                          Verifique se não esqueceu nenhum pertence na
+                          hospedagem. Caso precise de transporte para o
+                          aeroporto ou rodoviária, recomendamos agendar com
+                          antecedência. O trajeto de Praia do Forte até Salvador
+                          leva aproximadamente 1h30.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
           </TabsContent>
         </Tabs>
+
+        <section className="mb-8">
+          <Card>
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center gap-2">
+                <Info className="h-5 w-5" />
+                Dicas Extras
+              </CardTitle>
+              <CardDescription>
+                Informações úteis para sua viagem
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Accordion type="single" collapsible className="w-full">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger className="flex items-center gap-2">
+                    <Bike className="h-4 w-4" /> Transporte
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-sm text-muted-foreground">
+                      Aluguel de bicicleta ou buggy para explorar melhor a
+                      região. Existem diversos pontos de aluguel na vila.
+                      Recomendamos o "Praia do Forte Aluguel de Buggys" na
+                      entrada da Vila ou "Bike Rental Praia do Forte" na Alameda
+                      do Sol. Preços aproximados: Bicicletas - R$50/dia, Buggys
+                      - R$250/dia.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger className="flex items-center gap-2">
+                    <Home className="h-4 w-4" /> Reservas
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-sm text-muted-foreground">
+                      Restaurantes populares podem exigir reservas antecipadas,
+                      especialmente durante a alta temporada. Recomendamos fazer
+                      reservas com pelo menos 1 dia de antecedência para os
+                      restaurantes Papa Gente e Terra Brasil. Para o Projeto
+                      Tamar, não é necessário agendamento, mas para o passeio de
+                      quadriciclo na Reserva de Sapiranga, recomendamos agendar
+                      com 2 dias de antecedência.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger className="flex items-center gap-2">
+                    <Sun className="h-4 w-4" /> O que levar
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-sm text-muted-foreground">
+                      Roupas leves, calçado confortável para trilhas, snorkel e
+                      protetor solar. Não esqueça também de levar repelente,
+                      chapéu ou boné, óculos de sol, uma garrafa de água
+                      reutilizável e uma mochila pequena para os passeios. Para
+                      as piscinas naturais, recomendamos sandálias aquáticas
+                      devido às formações rochosas.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-4">
+                  <AccordionTrigger className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" /> Clima
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <p className="text-sm text-muted-foreground">
+                      Verifique a previsão para adaptar o itinerário caso
+                      necessário. A região costuma ter clima quente e úmido, com
+                      possibilidade de chuvas rápidas à tarde. Em março, a
+                      temperatura média varia entre 24°C e 30°C. Recomendamos
+                      verificar a tábua de marés para os passeios às piscinas
+                      naturais, que são mais visíveis durante a maré baixa.
+                    </p>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </CardContent>
+          </Card>
+        </section>
       </main>
+
+      <footer className="border-t py-6 md:py-0">
+        <div className="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+            &copy; {new Date().getFullYear()} Roteiro de Viagem - Praia do
+            Forte. Todos os direitos reservados.
+          </p>
+        </div>
+      </footer>
+
+      <Toaster />
     </div>
   );
 }
